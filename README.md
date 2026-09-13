@@ -33,12 +33,12 @@ Instead of manually listening to the recording and extracting the tasks, this ap
 
 ### Summary
 
-The speaker needs to finish the project report and call Rahul tomorrow.
+The speaker needs to finish the project report and call my friend tomorrow.
 
 ### Action Items
 
 - Finish the project report — Tomorrow
-- Call Rahul — Tomorrow
+- Call friend— Tomorrow
 
 This makes unstructured voice notes easier to understand and act on.
 
