@@ -43,57 +43,7 @@ The speaker needs to finish the project report and call my friend tomorrow.
 This makes unstructured voice notes easier to understand and act on.
 
 ---
-
-# System Architecture
-
-```text
-                         USER
-                           |
-                           | Upload Audio
-                           v
-                  +------------------+
-                  |  React Frontend  |
-                  |    Vite + CSS    |
-                  +--------+---------+
-                           |
-                           | HTTP POST /process
-                           v
-                  +------------------+
-                  |  FastAPI Backend |
-                  +--------+---------+
-                           |
-                           v
-                    +-------------+
-                    | pipeline.py |
-                    +------+------+
-                           |
-              +------------+------------+
-              |                         |
-              v                         v
-    +------------------+      +------------------+
-    | transcription.py |      |      llm.py      |
-    +--------+---------+      +--------+---------+
-             |                         |
-             v                         v
-        +---------+               +---------+
-        | Gemini  |               | Gemini  |
-        |   AI    |               |   AI    |
-        +----+----+               +----+----+
-             |                         |
-             v                         v
-        Transcript              Summary + Tasks
-             |                         |
-             +------------+------------+
-                          |
-                          v
-                    JSON Response
-                          |
-                          v
-                   React Frontend
-                          |
-                          v
-                   Results Display
-#Application Flow
+### Application Flow
 
 The application processes a voice note through the following steps:
 
@@ -150,32 +100,7 @@ FastAPI returns the processed result as JSON.
 
 8. Results Display
 
-React receives the response and displays:
-
-Transcript
-AI summary
-Action items
-Deadlines
-Tech Stack
-Frontend
-React
-Vite
-JavaScript
-CSS
-Fetch API
-Backend
-Python
-FastAPI
-Uvicorn
-Pydantic
-python-dotenv
-AI
-Google Gemini API
-Development Tools
-Git
-GitHub
-VS Code
-#Project Structure
+### Project Structure
 voice-action-items/
 |
 +-- backend/
@@ -209,172 +134,8 @@ voice-action-items/
 |
 +-- .gitignore
 +-- README.md
-#Backend Components
-main.py
 
-Creates the FastAPI server and exposes the API endpoints.
-
-The main processing endpoint is:
-
-POST /process
-
-It:
-
-Receives the uploaded audio file
-Temporarily stores the file
-Sends it to the processing pipeline
-Returns the processed result
-transcription.py
-
-Responsible for converting the uploaded audio into text using Gemini.
-
-Audio
-  |
-  v
-Gemini
-  |
-  v
-Transcript
-llm.py
-
-Analyzes the transcript using Gemini and generates:
-
-Summary
-Action items
-Deadlines
-
-The generated response is validated using Pydantic.
-
-schemas.py
-
-Defines the expected structure of the AI response.
-
-The main structure is:
-
-VoiceNoteResult
-|
-+-- summary
-|
-+-- action_items
-    |
-    +-- task
-    +-- deadline
-
-Each action item contains:
-
-task      -> The action that needs to be completed
-deadline  -> Explicitly mentioned deadline, if available
-pipeline.py
-
-Connects the complete backend workflow.
-
-Audio
-  |
-  v
-Transcription
-  |
-  v
-Transcript
-  |
-  v
-AI Analysis
-  |
-  v
-Summary + Action Items
-
-It acts as the central processing layer of the application.
-
-#Frontend
-
-The React application provides the user interface for interacting with the system.
-
-It includes:
-
-Audio file selection
-Drag-and-drop upload
-File information display
-Processing state
-Transcript display
-AI-generated summary
-Action item cards
-Deadline display
-Copy buttons
-New note / clear functionality
-Responsive interface
-
-The frontend communicates with FastAPI using an HTTP request.
-
-React
-  |
-  v
-fetch()
-  |
-  v
-FastAPI
-  |
-  v
-JSON Response
-  |
-  v
-React UI
-API
-GET /
-
-Checks whether the backend is running.
-
-Example Response
-{
-  "message": "Voice Action Items API is running"
-}
-POST /process
-
-Accepts an audio file and processes it using the AI pipeline.
-
-Request
-multipart/form-data
-file = audio file
-Response
-{
-  "transcript": "...",
-  "summary": "...",
-  "action_items": [
-    {
-      "task": "...",
-      "deadline": "..."
-    }
-  ]
-}
-Environment Variables
-
-The Gemini API key is stored in a .env file inside the backend.
-
-Create:
-
-backend/.env
-
-Add:
-
-GEMINI_API_KEY=your_api_key_here
-
-The .env file is excluded from Git using .gitignore.
-
-Important
-
-Never commit API keys or other secrets to GitHub.
-
-The API key remains on the backend and is never placed directly inside the React frontend.
-
-React Frontend
-      |
-      v
-FastAPI Backend
-      |
-      v
-Gemini API
-Running Locally
-Prerequisites
-
-Install the following:
+### Install the following:
 
 Python
 Node.js
@@ -427,51 +188,8 @@ npm run dev
 The frontend will run at:
 
 http://localhost:5173
-Testing
 
-The backend contains separate test files for validating different parts of the application.
-
-Gemini Connection
-python test_gemini.py
-Audio Transcription
-python test_transcription.py
-AI Summary and Action Items
-python test_llm.py
-Complete Pipeline
-python test_pipeline.py
-
-The complete pipeline test verifies:
-
-Audio
-  |
-  v
-Transcription
-  |
-  v
-Transcript
-  |
-  v
-AI Analysis
-  |
-  v
-Summary
-  |
-  v
-Action Items
-Security
-
-The project follows basic security practices:
-
-API key stored in environment variables
-.env excluded from Git
-Gemini API key kept on the backend
-API key is not exposed in frontend code
-Uploaded files are temporarily processed
-Temporary files are removed after processing
-
-For production deployment, additional security and validation would be required.
-
-Current Limitations
+### Current Limitations
 
 The current version is focused on local development and the core AI workflow.
 
@@ -486,7 +204,7 @@ No production deployment yet
 Audio format handling can be improved further
 Future Improvements
 
-Possible future improvements include:
+### Possible future improvements include:
 
 Voice Note History
 
@@ -515,83 +233,3 @@ Add user accounts and personalized voice-note history.
 Cloud Deployment
 
 Deploy the application online.
-
-Possible deployment:
-
-Frontend -> Vercel
-Backend  -> Render
-Better Audio Support
-
-Improve handling of different audio formats and larger files.
-
-Batch Processing
-
-Allow users to upload and process multiple voice notes together.
-
-Persistent Storage
-
-Add a database for storing:
-
-Voice notes
-Transcripts
-Summaries
-Action items
-Deadlines
-Learning Outcomes
-
-This project provides practical experience with:
-
-React frontend development
-FastAPI backend development
-REST API communication
-File uploads
-HTTP requests
-AI API integration
-Speech-to-text processing
-Prompt engineering
-Structured AI outputs
-Pydantic validation
-Environment variable security
-CORS
-Git and GitHub workflows
-Full-stack application architecture
-Project Flow at a Glance
-User
- |
- | Upload Voice Note
- v
-React Frontend
- |
- | HTTP Request
- v
-FastAPI Backend
- |
- v
-Processing Pipeline
- |
- +----------------------+
- |                      |
- v                      v
-Transcription        AI Analysis
- |                      |
- v                      v
-Gemini               Gemini
- |                      |
- v                      v
-Transcript        Summary + Tasks
- |                      |
- +----------+-----------+
-            |
-            v
-      JSON Response
-            |
-            v
-      React Frontend
-            |
-            v
-      Results Display
-Key Takeaway
-
-The main idea behind this project is simple:
-
-Don't just transcribe voice. Turn voice into action.
