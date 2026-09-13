@@ -93,7 +93,7 @@ This makes unstructured voice notes easier to understand and act on.
                           |
                           v
                    Results Display
-Application Flow
+#Application Flow
 
 The application processes a voice note through the following steps:
 
@@ -175,7 +175,7 @@ Development Tools
 Git
 GitHub
 VS Code
-Project Structure
+#Project Structure
 voice-action-items/
 |
 +-- backend/
@@ -209,7 +209,7 @@ voice-action-items/
 |
 +-- .gitignore
 +-- README.md
-Backend Components
+#Backend Components
 main.py
 
 Creates the FastAPI server and exposes the API endpoints.
@@ -284,7 +284,7 @@ Summary + Action Items
 
 It acts as the central processing layer of the application.
 
-Frontend
+#Frontend
 
 The React application provides the user interface for interacting with the system.
 
