@@ -28,6 +28,9 @@ Your tasks:
 4. If a task has no explicit deadline, use null.
 5. Do not invent tasks or deadlines.
 6. Ignore unnecessary filler words.
+7. If there are no genuine actionable tasks, return an empty action_items list.
+8. Do not create tasks from general statements, observations, or casual conversation.
+
 
 Transcript:
 
